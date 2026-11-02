@@ -1,0 +1,20 @@
+<% content_for :title, "Dashboard | ITT588 Lab" %>
+
+<section class="dashboard-card" aria-labelledby="dashboard-title">
+  <p class="eyebrow">Authentication complete</p>
+  <h1 id="dashboard-title">Hello, <%= current_user[:username] %>!</h1>
+  <p>You have successfully logged in using credentials read from <code>Password.txt</code>.</p>
+
+  <dl class="user-details">
+    <div>
+      <dt>Username</dt>
+      <dd><%= current_user[:username] %></dd>
+    </div>
+    <div>
+      <dt>Role</dt>
+      <dd><%= current_user[:role].to_s.titleize %></dd>
+    </div>
+  </dl>
+
+  <%= button_to "Log out", logout_path, method: :delete, class: "button button--secondary" %>
+</section>

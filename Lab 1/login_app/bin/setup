@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+APP_ROOT = File.expand_path("..", __dir__)
+
+Dir.chdir(APP_ROOT) do
+  system("bundle check") || system("bundle install") || abort("Bundle install failed")
+  system("bin/rails db:prepare") || abort("Database preparation failed")
+  system("bin/rails test") || abort("Tests failed")
+  puts "Setup complete. Start the app with: bin/rails server"
+end
