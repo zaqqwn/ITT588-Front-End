@@ -4,6 +4,8 @@
 
 A responsive front-end web application that **retrieves family heritage data from a JSON dataset** and **visualises it dynamically with JavaScript**. You can see the family as an interactive tree, browse and filter every member, open a profile for each person showing their parents, spouse, siblings and children, and work out how any two people are related.
 
+📑 **Presentation slides:** [ITT588_LAB_4_MUHAMMAD_ZAQWAN_2025140555.pdf](ITT588_LAB_4_MUHAMMAD_ZAQWAN_2025140555.pdf)
+
 ![Home page](screenshots/home.png)
 
 ---
@@ -109,6 +111,7 @@ The dataset has **17 members across 4 generations**.
 ```
 Lab 4/
 ├── README.md              ← this write-up
+├── ITT588_LAB_4_….pdf     ← presentation slides
 ├── screenshots/
 └── family-tree/
     ├── index.html         ← page shell: header, navigation, <main> container
