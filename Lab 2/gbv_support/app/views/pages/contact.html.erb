@@ -1,0 +1,118 @@
+<% content_for :title, "Contact Resources | SafeSpace Malaysia" %>
+
+<section class="page-hero page-hero--rose">
+  <div class="container page-hero__content">
+    <span class="eyebrow">Reach the right service</span>
+    <h1>Contact and support resources</h1>
+    <p>SafeSpace Malaysia is an educational project and does not operate a crisis line. Use the verified contacts below for real-world support.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-layout">
+    <div>
+      <span class="eyebrow">Choose by need</span>
+      <h2>Who should I contact?</h2>
+      <div class="contact-options">
+        <article><span aria-hidden="true">!</span><div><h3>Emergency response</h3><p>Call <a href="tel:999">999</a> if someone is in immediate danger or urgent police or medical assistance is needed.</p></div></article>
+        <article><span aria-hidden="true">☎</span><div><h3>Government support</h3><p>Call <a href="tel:15999">Talian Kasih 15999</a> or WhatsApp <a href="https://wa.me/60192615999">019-261 5999</a>, available 24/7.</p></div></article>
+        <article><span aria-hidden="true">♡</span><div><h3>Specialist survivor support</h3><p>Call WAO at <a href="tel:+60330008858">03-3000 8858</a> or WhatsApp TINA at <a href="https://wa.me/60189888058">018-988 8058</a>.</p></div></article>
+        <article><span aria-hidden="true">+</span><div><h3>Medical attention</h3><p>Go to the emergency department of your nearest government hospital and ask for the One Stop Crisis Centre.</p></div></article>
+      </div>
+    </div>
+
+    <aside class="contact-panel">
+      <span class="eyebrow">Before you call</span>
+      <h2>You can start with one sentence.</h2>
+      <blockquote>“I am not feeling safe and I would like to understand my options.”</blockquote>
+      <p>You do not need to have every detail ready. The person answering may ask about immediate danger, injuries, children and a safe way to contact you.</p>
+      <%= link_to "See the full support directory", hotline_path, class: "button button--primary" %>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container section-heading section-heading--center">
+    <span class="eyebrow">A note on privacy</span>
+    <h2>Use a safer device if your activity may be monitored.</h2>
+    <p>Consider using a trusted person's phone or a public device. Changing or deleting history can sometimes be noticed, so make the choice that feels safest in your circumstances.</p>
+  </div>
+</section>
+
+<%# Lab 3: feedback form checked by feedback_form_controller.js, with a review popup (dialog) %>
+<% content_for :inline_flash, "yes" %>
+<section class="section" id="feedback">
+  <div class="container feedback-wrap" data-controller="feedback-form" data-feedback-form-max-value="<%= PagesController::MESSAGE_LIMIT %>">
+    <span class="eyebrow">Help us improve</span>
+    <h2>Send website feedback</h2>
+    <p id="feedback-note">Tell us what to improve on this website. Please use sample details only and do not enter personal case information. For urgent support, use the <%= link_to "Hotline page", hotline_path %>.</p>
+
+    <% if flash[:notice] %><div class="form-notice" role="status"><%= flash[:notice] %></div><% end %>
+
+    <%# Errors are written here by the server (below) or by JavaScript with innerHTML %>
+    <div class="form-errors" role="alert" tabindex="-1" data-feedback-form-target="summary" <%= "hidden" if @errors.blank? %>>
+      <% if @errors.present? %>
+        <strong>Please check <%= pluralize(@errors.size, "item") %>:</strong>
+        <ul><% @errors.each do |error| %><li><%= error %></li><% end %></ul>
+      <% end %>
+    </div>
+
+    <%= form_with url: send_feedback_path, method: :post, class: "feedback-form",
+          data: { feedback_form_target: "form", action: "submit->feedback-form#submit" },
+          html: { novalidate: true, "aria-describedby": "feedback-note" } do |form| %>
+      <div class="form-row">
+        <div class="field">
+          <%= form.label :name, "Name" %>
+          <%= form.text_field :name, value: @feedback&.dig("name"), maxlength: 100, autocomplete: "off",
+                data: { feedback_form_target: "name" } %>
+        </div>
+        <div class="field">
+          <%= form.label :email, "Email" %>
+          <%= form.email_field :email, value: @feedback&.dig("email"), maxlength: 254, autocomplete: "off",
+                data: { feedback_form_target: "email" } %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <%= form.label :topic, "Topic" %>
+          <%= form.select :topic, PagesController::FEEDBACK_TOPICS,
+                { include_blank: "Choose a topic", selected: @feedback&.dig("topic") },
+                data: { feedback_form_target: "topic" } %>
+        </div>
+        <div class="field">
+          <%= form.label :reply_date, "Preferred reply date (optional)" %>
+          <%= form.date_field :reply_date, value: @feedback&.dig("reply_date"),
+                data: { feedback_form_target: "replyDate", action: "change->feedback-form#describeDate" } %>
+          <small class="field-hint" data-feedback-form-target="dateHint">Weekdays only, within the next 30 days.</small>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= form.label :message, "Message" %>
+        <%= form.text_area :message, value: @feedback&.dig("message"), rows: 5,
+              data: { feedback_form_target: "message", action: "input->feedback-form#updateCounter" } %>
+        <small class="char-counter" data-feedback-form-target="counter" aria-live="polite"></small>
+      </div>
+
+      <label class="check-field">
+        <%= form.check_box :consent, { checked: @feedback&.dig("consent") == "1", data: { feedback_form_target: "consent" } } %>
+        <span>I used sample details only and I understand this form is not for emergencies.</span>
+      </label>
+
+      <%= form.submit "Review my feedback", class: "button button--primary" %>
+    <% end %>
+
+    <%# Popup dialog: opened with dialog.showModal() after the form passes the checks %>
+    <dialog class="review-dialog" aria-labelledby="review-title" data-feedback-form-target="dialog">
+      <span class="eyebrow">Step 2 of 2</span>
+      <h2 id="review-title">Check your feedback</h2>
+      <p>Please make sure everything is correct before you send it.</p>
+      <dl class="review-list" data-feedback-form-target="review"></dl>
+      <div class="review-dialog__actions">
+        <button type="button" class="button button--secondary" data-action="feedback-form#edit">Edit</button>
+        <button type="button" class="button button--primary" data-feedback-form-target="sendButton" data-action="feedback-form#confirm">Confirm and send</button>
+      </div>
+    </dialog>
+  </div>
+</section>

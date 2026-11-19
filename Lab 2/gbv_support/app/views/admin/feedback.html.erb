@@ -1,0 +1,61 @@
+<% content_for :title, "Staff inbox | SafeSpace Malaysia" %>
+
+<%# Lab 3: only logged-in staff reach this page (before_action :require_login) %>
+<section class="page-hero page-hero--blue">
+  <div class="container page-hero__content">
+    <span class="eyebrow">Staff inbox</span>
+    <h1>Website feedback</h1>
+    <p>
+      Logged in as <strong><%= current_staff.name %></strong> (<%= current_staff.role %>)<% if @logged_in_at %> since <%= l(@logged_in_at, format: "%-I:%M %p, %-d %B %Y") %><% end %>.
+      Messages are read from <code>storage/feedback.txt</code>.
+    </p>
+  </div>
+</section>
+
+<section class="section" data-controller="time-ago">
+  <div class="container">
+    <div class="inbox-stats">
+      <article class="inbox-stats__total"><strong><%= @entries.size %></strong><span><%= "message".pluralize(@entries.size) %></span></article>
+      <% @topic_counts.each do |topic, count| %>
+        <article><strong><%= count %></strong><span><%= topic %></span></article>
+      <% end %>
+    </div>
+
+    <% unless current_staff.admin? %>
+      <p class="inbox-note">You are logged in as a volunteer, so email addresses are hidden.</p>
+    <% end %>
+
+    <% if @entries.empty? %>
+      <div class="empty-inbox">
+        <h2>No feedback yet</h2>
+        <p>Send a test message from the <%= link_to "Contact page", contact_path(anchor: "feedback") %> and it will appear here.</p>
+      </div>
+    <% else %>
+      <div class="table-scroll">
+        <table class="agency-table inbox-table">
+          <caption>Newest messages first</caption>
+          <thead>
+            <tr><th scope="col">Received</th><th scope="col">From</th><th scope="col">Topic</th><th scope="col">Reply by</th><th scope="col">Message</th></tr>
+          </thead>
+          <tbody>
+            <% @entries.each do |entry| %>
+              <% received = Time.zone.parse(entry["received_at"].to_s) %>
+              <tr>
+                <td>
+                  <% if received %>
+                    <time datetime="<%= received.iso8601 %>" data-time-ago-target="time"><%= l(received, format: "%-d %b, %-I:%M %p") %></time>
+                    <small class="inbox-date"><%= l(received, format: "%-d %b %Y, %-I:%M %p") %></small>
+                  <% end %>
+                </td>
+                <td><strong><%= entry["name"] %></strong><small class="inbox-email"><%= current_staff.admin? ? entry["email"] : mask_email(entry["email"]) %></small></td>
+                <td><span class="status-pill"><%= entry["topic"] %></span></td>
+                <td><%= reply_date_label(entry["reply_date"]) %></td>
+                <td class="inbox-message"><%= entry["message"] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</section>

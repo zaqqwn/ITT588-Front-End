@@ -1,0 +1,107 @@
+<% content_for :title, "SafeSpace Malaysia | Support starts here" %>
+
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <span class="eyebrow">You are not alone</span>
+      <h1>Support starts with one <span>safe step.</span></h1>
+      <p class="hero__lead">Clear information and trusted support options for anyone experiencing gender-based violence in Malaysia.</p>
+      <div class="button-row">
+        <%= link_to "Find help now", hotline_path, class: "button button--primary" %>
+        <%= link_to "Learn about GBV", what_is_path, class: "button button--secondary" %>
+      </div>
+      <p class="privacy-note"><span aria-hidden="true">●</span> Browse at your own pace. You decide what happens next.</p>
+    </div>
+
+    <div class="hero__visual" aria-label="A message of safety and support">
+      <div class="support-card support-card--back">
+        <span class="support-card__icon" aria-hidden="true">♡</span>
+        <strong>Your feelings are valid</strong>
+      </div>
+      <div class="support-card support-card--main">
+        <div class="shield" aria-hidden="true">✓</div>
+        <p>Everyone deserves to feel</p>
+        <strong>safe, heard<br>and respected.</strong>
+        <span>Help is available.</span>
+      </div>
+      <div class="support-card support-card--front">
+        <span class="support-card__icon" aria-hidden="true">24/7</span>
+        <strong>Support is within reach</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Our approach">
+  <div class="container trust-strip__grid">
+    <div><span aria-hidden="true">◇</span><strong>Confidential</strong><small>Your privacy matters</small></div>
+    <div><span aria-hidden="true">○</span><strong>Inclusive</strong><small>Support without judgement</small></div>
+    <div><span aria-hidden="true">✓</span><strong>Practical</strong><small>Clear options and next steps</small></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading section-heading--center">
+      <span class="eyebrow">How we can help</span>
+      <h2>Choose what feels right for you</h2>
+      <p>There is no single correct response. Start with the information or support you need today.</p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card feature-card--lavender">
+        <span class="feature-card__number">01</span>
+        <div class="feature-card__icon" aria-hidden="true">?</div>
+        <h3>Understand what is happening</h3>
+        <p>Recognise different forms of gender-based violence, warning signs and common patterns of control.</p>
+        <%= link_to "Learn about GBV →", what_is_path %>
+      </article>
+
+      <article class="feature-card feature-card--peach">
+        <span class="feature-card__number">02</span>
+        <div class="feature-card__icon" aria-hidden="true">☎</div>
+        <h3>Reach trusted support</h3>
+        <p>Find verified Malaysian emergency, government and specialist support services in one place.</p>
+        <%= link_to "View support options →", hotline_path %>
+      </article>
+
+      <article class="feature-card feature-card--mint">
+        <span class="feature-card__number">03</span>
+        <div class="feature-card__icon" aria-hidden="true">⚖</div>
+        <h3>Know your reporting options</h3>
+        <p>Understand what to prepare, where to report and what may happen when seeking protection.</p>
+        <%= link_to "Explore reporting steps →", law_enforcement_path %>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container split-panel">
+    <div>
+      <span class="eyebrow">If you are supporting someone</span>
+      <h2>Your response can make a difference.</h2>
+      <p>Listen without judgement, believe what they tell you and respect their decisions. Do not pressure them to leave or report before they are ready, unless someone is in immediate danger.</p>
+      <%= link_to "Guidance for responders", enforcer_path, class: "text-link" %>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark" aria-hidden="true">“</span>
+      <blockquote>I believe you. This is not your fault. How can I support you right now?</blockquote>
+      <p>A simple, survivor-centred response</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--compact">
+  <div class="container action-banner">
+    <div>
+      <span class="eyebrow eyebrow--light">Need support now?</span>
+      <h2>Help is one call or message away.</h2>
+      <p>Talian Kasih operates 24 hours a day, seven days a week.</p>
+    </div>
+    <div class="action-banner__buttons">
+      <a href="tel:15999" class="button button--light">Call 15999</a>
+      <a href="https://wa.me/60192615999" class="button button--outline-light">WhatsApp Talian Kasih</a>
+    </div>
+  </div>
+</section>

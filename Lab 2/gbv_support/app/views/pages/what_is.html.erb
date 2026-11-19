@@ -1,0 +1,90 @@
+<% content_for :title, "Understand GBV | SafeSpace Malaysia" %>
+
+<section class="page-hero page-hero--lavender">
+  <div class="container page-hero__content">
+    <span class="eyebrow">Understand the issue</span>
+    <h1>What is gender-based violence?</h1>
+    <p>Gender-based violence, or GBV, is harm directed at someone because of their gender, gender identity or unequal power relationships.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container content-grid">
+    <div class="prose">
+      <h2>Domestic violence and GBV</h2>
+      <p>Domestic violence involves abuse within a family or intimate relationship. It can include physical harm, threats, emotional abuse, sexual abuse and financial control. GBV is a broader term that also includes violence outside the home.</p>
+      <p>GBV can affect people of every age, background and identity. It may happen at home, at work, online or in public. The person causing harm may be a partner, relative, colleague, acquaintance or stranger.</p>
+      <p>Violence is never the survivor's fault. Responsibility always belongs to the person choosing to cause harm.</p>
+    </div>
+    <aside class="info-box">
+      <strong>Remember</strong>
+      <p>You do not need visible injuries for an experience to be serious or deserving of support.</p>
+    </aside>
+  </div>
+
+  <div class="container">
+    <h2 class="subsection-title">Forms of gender-based violence</h2>
+    <div class="definition-grid">
+      <article><span aria-hidden="true">01</span><h3>Physical</h3><p>Hitting, pushing, restraining, choking, threatening with weapons or preventing medical care.</p></article>
+      <article><span aria-hidden="true">02</span><h3>Emotional</h3><p>Humiliation, threats, intimidation, isolation, constant criticism or controlling who someone sees.</p></article>
+      <article><span aria-hidden="true">03</span><h3>Sexual</h3><p>Any sexual act, contact or image-sharing without freely given and ongoing consent.</p></article>
+      <article><span aria-hidden="true">04</span><h3>Financial</h3><p>Controlling money, stopping someone from working, taking earnings or creating debt in their name.</p></article>
+      <article><span aria-hidden="true">05</span><h3>Digital</h3><p>Monitoring devices, demanding passwords, tracking location, harassment or threats through technology.</p></article>
+      <article><span aria-hidden="true">06</span><h3>Stalking</h3><p>Repeated unwanted contact, following, surveillance or behaviour that causes fear or distress.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container split-panel split-panel--top">
+    <div>
+      <span class="eyebrow">Recognising patterns</span>
+      <h2>Warning signs of coercive control</h2>
+      <ul class="check-list">
+        <li>They isolate you from friends, family or support.</li>
+        <li>They monitor your phone, messages, location or spending.</li>
+        <li>You change your behaviour because you are afraid of their reaction.</li>
+        <li>They threaten you, your children, pets or themselves.</li>
+        <li>They control access to money, transport, documents or healthcare.</li>
+      </ul>
+    </div>
+    <div class="next-step-card">
+      <span class="eyebrow">A next step</span>
+      <h3>If any of this feels familiar</h3>
+      <p>You can speak confidentially with a specialist service, even if you are unsure what to call your experience.</p>
+      <%= link_to "See support options", hotline_path, class: "button button--primary" %>
+    </div>
+  </div>
+</section>
+
+<%# Lab 3: Myth or Fact quiz, handled by myth_quiz_controller.js %>
+<section class="section" id="quiz">
+  <div class="container quiz-wrap" data-controller="myth-quiz">
+    <div class="section-heading">
+      <span class="eyebrow">Test yourself</span>
+      <h2>Myth or fact?</h2>
+      <p>Choose an answer for each statement, then check your score. Your answers stay in this browser and are not sent anywhere.</p>
+    </div>
+
+    <form class="quiz-form" data-myth-quiz-target="form" data-action="submit->myth-quiz#check">
+      <% @quiz_questions.each_with_index do |question, index| %>
+        <fieldset class="quiz-question" data-myth-quiz-target="question"
+                  data-statement="<%= question[:statement] %>" data-answer="<%= question[:answer] %>" data-why="<%= question[:why] %>">
+          <legend><span class="quiz-number"><%= index + 1 %></span><%= question[:statement] %></legend>
+          <div class="quiz-options">
+            <label><input type="radio" name="q<%= index + 1 %>" value="myth"> Myth</label>
+            <label><input type="radio" name="q<%= index + 1 %>" value="fact"> Fact</label>
+          </div>
+          <p class="quiz-feedback" data-myth-quiz-target="feedback" aria-live="polite"></p>
+        </fieldset>
+      <% end %>
+
+      <div class="quiz-actions">
+        <button class="button button--primary" type="submit">Check my answers</button>
+        <button class="button button--secondary" type="button" data-action="myth-quiz#reset">Start again</button>
+      </div>
+    </form>
+
+    <div class="quiz-result" data-myth-quiz-target="result" aria-live="polite" hidden></div>
+  </div>
+</section>

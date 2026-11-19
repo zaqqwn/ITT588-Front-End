@@ -1,0 +1,32 @@
+<% content_for :title, "Staff login | SafeSpace Malaysia" %>
+
+<%# Lab 3: login form. SessionsController#create checks the details against Password.txt %>
+<section class="login-section">
+  <div class="container login-layout">
+    <div class="login-intro">
+      <span class="eyebrow">Staff only</span>
+      <h1>Log in to the feedback inbox</h1>
+      <p>Staff and volunteers can read the website feedback sent from the Contact page. Accounts are checked against <code>Password.txt</code> on the server.</p>
+      <ul class="check-list">
+        <li>After 3 wrong attempts, login is locked for 60 seconds.</li>
+        <li>Volunteers see feedback with the email address hidden.</li>
+      </ul>
+    </div>
+
+    <div class="login-card" data-controller="login-form">
+      <%= form_with url: login_path, method: :post, class: "login-form",
+            data: { action: "submit->login-form#submitting" }, html: { novalidate: true } do |form| %>
+        <%= form.label :username, "Username" %>
+        <%= form.text_field :username, value: params[:username], autocomplete: "username", autofocus: true, maxlength: 50 %>
+
+        <%= form.label :password, "Password" %>
+        <%= form.password_field :password, autocomplete: "current-password", maxlength: 100,
+              data: { action: "keydown->login-form#check keyup->login-form#check" } %>
+        <p class="caps-warning" data-login-form-target="warning" hidden>Caps Lock is on. Passwords are case-sensitive.</p>
+
+        <%= form.submit "Log in", class: "button button--primary", data: { login_form_target: "button" } %>
+      <% end %>
+      <p class="login-note">This is a lab demonstration. Never reuse a real password here.</p>
+    </div>
+  </div>
+</section>

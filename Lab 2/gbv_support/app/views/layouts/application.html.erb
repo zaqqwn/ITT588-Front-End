@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || "SafeSpace Malaysia" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Clear, confidential information and support options for people affected by gender-based violence in Malaysia.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div class="emergency-bar" role="note">
+      <div class="container emergency-bar__content">
+        <span><strong>In immediate danger?</strong> Call Malaysia Emergency Response Services.</span>
+        <a href="tel:999" aria-label="Call emergency services at 999">Call 999</a>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <%= link_to root_path, class: "brand", aria: { label: "SafeSpace Malaysia home" } do %>
+          <span class="brand__mark" aria-hidden="true">S</span>
+          <span>SafeSpace <small>Malaysia</small></span>
+        <% end %>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">Menu <span aria-hidden="true">☰</span></button>
+        <nav id="main-navigation" class="site-nav" aria-label="Main navigation">
+          <%= nav_link "Home", root_path %>
+          <%= nav_link "What Is GBV", what_is_path %>
+          <%= nav_link "Hotline", hotline_path %>
+          <%= nav_link "Law Enforcement", law_enforcement_path %>
+          <%= nav_link "Enforcer", enforcer_path %>
+          <%= nav_link "Contact", contact_path %>
+          <%# Lab 3: logged_in? comes from ApplicationController (helper_method) %>
+          <% if logged_in? %>
+            <%= nav_link "Staff inbox", admin_feedback_path %>
+            <%= button_to "Log out", logout_path, method: :delete, class: "nav-logout", form_class: "nav-logout-form" %>
+          <% else %>
+            <%= link_to "Staff login", login_path, class: ["nav-login", ("is-active" if current_page?(login_path))] %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <%# Lab 3: flash messages for every page (the Contact page shows its own next to the form) %>
+    <% unless content_for?(:inline_flash) %>
+      <% flash.each do |type, message| %>
+        <div class="flash flash--<%= type %>" role="<%= type.to_s == "alert" ? "alert" : "status" %>">
+          <div class="container"><%= message %></div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <main id="main-content">
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand brand--footer">
+            <span class="brand__mark" aria-hidden="true">S</span>
+            <span>SafeSpace <small>Malaysia</small></span>
+          </div>
+          <p>Information, dignity and safer next steps for everyone affected by gender-based violence.</p>
+        </div>
+        <div>
+          <h2>Quick links</h2>
+          <%= link_to "What Is GBV", what_is_path %>
+          <%= link_to "Find support", hotline_path %>
+          <%= link_to "Contact resources", contact_path %>
+        </div>
+        <div>
+          <h2>Urgent support</h2>
+          <a href="tel:999">Emergency: 999</a>
+          <a href="tel:15999">Talian Kasih: 15999</a>
+          <a href="https://wa.me/60192615999">WhatsApp: 019-261 5999</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>&copy; <%= Time.current.year %> SafeSpace Malaysia. Educational ITT588 Lab 3 project.</p>
+        <p>This website does not replace emergency, medical or legal services.</p>
+      </div>
+    </footer>
+  </body>
+</html>
