@@ -9,4 +9,4 @@ Lab work for ITT588 (Front End), UiTM CDCS266, Semester 6.
 | [Lab 1](Lab%201/) | Ruby on Rails login app that reads credentials from `Password.txt` ([details](Lab%201/README.md)), plus the lab report |
 | [Lab 2](Lab%202/) | Lab Work 02 report |
 | [Lab 3](Lab%203/) | Lab Work 03 report |
-| [Lab 4](Lab%204/) | Lab Work 04: JavaScript front-end app that loads and visualises family heritage data from JSON |
+| [Lab 4](Lab%204/) | Interactive Family Tree web app (HTML, CSS, JavaScript) that loads and visualises family heritage data from JSON ([write-up](Lab%204/README.md)) |
